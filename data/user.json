@@ -1,0 +1,30 @@
+[
+  {
+    "_id": "fjfhf8",
+    "fullname": "Muki Ja",
+    "username": "muki",
+    "password": "1234",
+    "isAdmin": false
+  },
+  {
+    "_id": "dfg88",
+    "fullname": "Puki Ba",
+    "username": "puki",
+    "password": "123",
+    "isAdmin": false
+  },
+  {
+    "_id": "qFFyc",
+    "username": "puk",
+    "fullname": "Puk Gag",
+    "password": "puk",
+    "isAdmin": false
+  },
+  {
+    "_id": "EgGeO",
+    "username": "ori",
+    "fullname": "ori krispel",
+    "password": "orikris",
+    "isAdmin": true
+  }
+]
