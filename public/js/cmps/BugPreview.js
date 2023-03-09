@@ -19,7 +19,6 @@ export default {
     },
     isOwner() {
       const user = userService.getLoggedInUser()
-      console.log('user:', user)
       if (!user) return false
       if (user._id === this.bug.creator._id || user.isAdmin) return true
       return false

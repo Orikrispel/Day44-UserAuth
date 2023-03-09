@@ -43,9 +43,12 @@ function getById(bugId) {
     return Promise.resolve(bug)
 }
 
-function remove(bugId) {
+function remove(bugId, loggedinUser) {
     const idx = gBugs.findIndex(bug => bug._id === bugId)
     if (idx === -1) return Promise.reject('Unknonwn bug')
+    if (gBugs[idx].creator._id !== loggedinUser._id && !loggedinUser.isAdmin) {
+        return Promise.reject('Not authorized to delete this bug')
+    }
 
     gBugs.splice(idx, 1)
     return _saveBugsToFile()
@@ -56,6 +59,9 @@ function save(bug, loggedinUser) {
     if (bug._id) {
         savedBug = gBugs.find(currBug => currBug._id === bug._id)
         if (!savedBug) return Promise.reject('Unknonwn bug')
+        if (gBugs[idx].creator._id !== loggedinUser._id && !loggedinUser.isAdmin) {
+            return Promise.reject('Not authorized to delete this bug')
+        }
         savedBug.title = bug.title
         savedBug.description = bug.description
         savedBug.severity = bug.severity

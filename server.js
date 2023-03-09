@@ -84,8 +84,6 @@ app.post('/api/bug/', (req, res) => {
 
 app.get('/api/bug/:bugId', (req, res) => {
   const { bugId } = req.params
-  console.log('bugId:', bugId)
-  console.log('hiii')
   var visitedBugs = req.cookies.visitedBugs || '[]'
   visitedBugs = JSON.parse(visitedBugs)
   if (!visitedBugs.includes(bugId)) visitedBugs.push(bugId)
@@ -102,8 +100,12 @@ app.get('/api/bug/:bugId', (req, res) => {
 })
 
 app.delete('/api/bug/:bugId', (req, res) => {
+
+  const loggedinUser = userService.validateToken(req.cookies.loginToken)
+  if (!loggedinUser) return res.status(401).send('Cannot add bug')
+
   const { bugId } = req.params
-  bugService.remove(bugId)
+  bugService.remove(bugId, loggedinUser)
     .then(() => {
       res.send('OK, deleted')
     })

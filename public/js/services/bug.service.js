@@ -20,7 +20,6 @@ function query(filterBy = {}, sortBy = {}) {
 }
 
 function getById(bugId) {
-  console.log('bugId:', bugId)
   return axios.get(`/api/bug/${bugId}`)
     .then(res => res.data)
 }

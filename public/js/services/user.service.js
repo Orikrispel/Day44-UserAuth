@@ -15,7 +15,6 @@ export const userService = {
 
 function getLoggedInUser() {
     const str = sessionStorage.getItem(STORAGE_KEY_LOGGEDIN_USER)
-    console.log(str)
     return JSON.parse(str)
 }
 

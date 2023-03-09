@@ -1,6 +1,7 @@
 'use strict'
 import { bugService } from '../services/bug.service.js'
 import { utilService } from '../services/util.service.js'
+import { showErrorMsg } from "../services/event-bus.service.js"
 import bugList from '../cmps/BugList.js'
 import bugFilter from '../cmps/BugFilter.js'
 
@@ -41,19 +42,23 @@ export default {
 			bugService.query(this.filterBy, this.sortBy).then(({ bugs, totalPages }) => {
 				this.bugs = bugs
 				this.totalPages = totalPages
+				console.log('total pages:', this.totalPages)
 			})
 		},
 		getPage(dir) {
 			this.filterBy.page += dir
 			if (this.filterBy.page < 0) this.filterBy.page = 0
-			if (this.filterBy.page < 0) this.filterBy.page = this.totalPages - 1
+			if (this.filterBy.page >= this.totalPages) {
+				this.filterBy.page -= 1
+				return
+			}
 			this.loadBugs()
 		},
 		removeBug(bugId) {
 			bugService.remove(bugId)
 				.then(() => this.loadBugs())
 				.catch(err => {
-					showErrorMsg('Bug remove failed')
+					showErrorMsg('Bug remove failed', err)
 				})
 		},
 		setFilterBy(filterBy) {
