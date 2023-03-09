@@ -4,7 +4,7 @@ import { userService } from "../services/user.service.js"
 export default {
     template: `
     <section class="login-signup">
-        <form  @submit.prevent="login">
+        <form @submit.prevent="login">
             <h2>Login</h2>
             <input type="text" v-model="credentials.username" placeholder="Username" />
             <input type="password" v-model="credentials.password" placeholder="Password" />
